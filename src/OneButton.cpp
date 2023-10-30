@@ -233,10 +233,15 @@ void OneButton::tick(bool activeLevel)
 /**
  *  @brief Advance to a new state and save the last one to come back in cas of bouncing detection.
  */
-void OneButton::_newState(stateMachine_t nextState)
+void OneButton::_newState(stateMachine_t nextState) 
 {
-  _state = nextState;
-} // _newState()
+  if (_state != nextState) 
+  {
+    _state = nextState;
+
+    if (_paramChangeFunc) _paramChangeFunc(_changeFuncParam);
+  }
+}  // _newState()
 
 
 /**
@@ -264,6 +269,7 @@ void OneButton::_fsm(bool activeLevel)
       _newState(OneButton::OCS_UP);
       _startTime = now; // remember starting time
 
+
     } else if ((activeLevel) && (waitTime > _press_ms)) {
       if (_longPressStartFunc) _longPressStartFunc();
       if (_paramLongPressStartFunc) _paramLongPressStartFunc(_longPressStartFuncParam);
@@ -286,9 +292,10 @@ void OneButton::_fsm(bool activeLevel)
       // button is down again
       _newState(OneButton::OCS_DOWN);
       _startTime = now; // remember starting time
-
+      
     } else if ((waitTime >= _click_ms) || (_nClicks == _maxClicks)) {
       // now we know how many clicks have been made.
+
 
       if (_nClicks == 1) {
         // this was 1 click only.
