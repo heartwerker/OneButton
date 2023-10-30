@@ -93,6 +93,13 @@ void OneButton::attachClick(parameterizedCallbackFunction newFunction, void *par
   _clickFuncParam = parameter;
 } // attachClick
 
+// save function for parameterized change event
+void OneButton::attachChange(parameterizedCallbackFunction newFunction, void *parameter)
+{
+  _paramChangeFunc = newFunction;
+  _changeFuncParam = parameter;
+} // attachChange
+
 
 // save function for doubleClick event
 void OneButton::attachDoubleClick(callbackFunction newFunction)

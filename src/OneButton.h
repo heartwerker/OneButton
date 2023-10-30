@@ -88,6 +88,12 @@ public:
   void attachClick(parameterizedCallbackFunction newFunction, void *parameter);
 
   /**
+   * Attach an event to be called when a press or an unpress is detected.
+   * @param newFunction This function will be called when the event has been detected.
+   */
+  void attachChange(parameterizedCallbackFunction newFunction, void *parameter);
+
+  /**
    * Attach an event to be called after a double click is detected.
    * @param newFunction This function will be called when the event has been detected.
    */
@@ -178,6 +184,10 @@ private:
   callbackFunction _clickFunc = NULL;
   parameterizedCallbackFunction _paramClickFunc = NULL;
   void *_clickFuncParam = NULL;
+
+  callbackFunction _changeFunc = NULL;
+  parameterizedCallbackFunction _paramChangeFunc = NULL;
+  void *_changeFuncParam = NULL;
 
   callbackFunction _doubleClickFunc = NULL;
   parameterizedCallbackFunction _paramDoubleClickFunc = NULL;
